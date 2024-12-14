@@ -7,6 +7,10 @@ export default defineWorkspace([
       include: ["**/*.node.test.{js,jsx}"],
       name: "happy-dom",
       environment: "happy-dom",
+      coverage: {
+        provider: "istanbul",
+        reporter: ["text", "json", "html"],
+      },
     },
   },
   {
@@ -19,6 +23,9 @@ export default defineWorkspace([
         provider: "playwright",
         enabled: true,
         name: "firefox",
+        coverage: {
+          reporter: ["text", "json", "html"],
+        },
       },
     },
   },
