@@ -5,13 +5,15 @@ import Cart from "../Cart";
 import { CartContext } from "../contexts";
 
 
-export const Route = createLazyFileRoute("/order")({
-  component: Order,
-});
-
 const intl = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
+  });
+
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  export const Route = createLazyFileRoute("/order")({
+    component: Order,
   });
 
  function Order() {
@@ -24,7 +26,7 @@ const intl = new Intl.NumberFormat("en-US", {
   async function checkout() {
     setLoading(true);
   
-    await fetch("/api/order", {
+    await fetch(`${apiUrl}/api/order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +53,7 @@ const intl = new Intl.NumberFormat("en-US", {
   }, []);
 
   async function fetchPizzaTypes() {
-    const pizzasRes = await fetch("/api/pizzas");
+    const pizzasRes = await fetch(`${apiUrl}/api/pizzas`);
     const pizzasJson = await pizzasRes.json();
     setPizzaTypes(pizzasJson);
     setLoading(false);
